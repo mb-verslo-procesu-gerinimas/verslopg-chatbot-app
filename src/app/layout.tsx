@@ -1,5 +1,6 @@
 import '@/styles/tailwind.css'
 import type { Metadata } from 'next'
+import { UserProvider } from '@auth0/nextjs-auth0/client'
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +20,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </head>
-      <body>{children}</body>
+      <body>
+        <UserProvider>{children}</UserProvider>
+      </body>
     </html>
   )
 }

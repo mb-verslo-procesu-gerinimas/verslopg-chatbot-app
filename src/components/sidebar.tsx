@@ -1,6 +1,7 @@
 'use client'
 
 import * as Headless from '@headlessui/react'
+import { useUser } from '@auth0/nextjs-auth0/client'
 import clsx from 'clsx'
 import { LayoutGroup, motion } from 'framer-motion'
 import React, { forwardRef, useId } from 'react'
@@ -36,6 +37,8 @@ export function SidebarBody({ className, ...props }: React.ComponentPropsWithout
 }
 
 export function SidebarFooter({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+  const { user } = useUser()
+
   return (
     <div
       {...props}
@@ -43,7 +46,13 @@ export function SidebarFooter({ className, ...props }: React.ComponentPropsWitho
         className,
         'flex flex-col border-t border-zinc-950/5 p-4 dark:border-white/5 [&>[data-slot=section]+[data-slot=section]]:mt-2.5'
       )}
-    />
+    >
+      {user ? (
+        <SidebarItem href="/api/auth/logout">Sign out</SidebarItem>
+      ) : (
+        <SidebarItem href="/api/auth/login">Sign in</SidebarItem>
+      )}
+    </div>
   )
 }
 
